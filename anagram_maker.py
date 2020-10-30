@@ -47,15 +47,27 @@ def reduce_words(words, letters):
 
 
 def count_letters(word):
-    # count letters of word and return dictionary with counts for every letter
+    '''
+    Count letters of word and return dictionary with counts for every letter.
+
+    Parameters
+    ----------
+    word : str
+        Word whose letters will be counted.
+
+    Returns
+    -------
+    abc_counts : dict
+        Dictionary with counts for every letter in word.
+    '''
     abc = 'abcdefghijklmnopqrstuvwxyz'
     abc_counts = {}
-    for l in abc:
+    for letter_alpha in abc:
         count = 0
-        for ll in word:
-            if ll == l:
+        for letter_word in word:
+            if letter_word == letter_alpha:
                 count += 1
-        abc_counts[l] = count
+        abc_counts[letter_alpha] = count
     return abc_counts
 
 
