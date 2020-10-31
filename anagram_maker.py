@@ -162,7 +162,7 @@ def find_anagrams(words, word1):
         elif len(word) < len(word1):
             words_for_w2.append(word)
 
-        # list is sorted
+        # no need to continue if word from list is longer, list must be sorted
         elif len(word) > len(word1):
             break
 
@@ -176,7 +176,7 @@ def find_anagrams(words, word1):
             comb = word + word2
             if len(comb) == len(word1):
                 if count_letters(word1) == count_letters(comb):
-                    w2_anagrams.append((word, word2))
+                    w2_anagrams.append(word + f' {word2}')
 
     return w1_anagrams + w2_anagrams
 
