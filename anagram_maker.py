@@ -72,23 +72,54 @@ def count_letters(word):
 
 
 def get_len_indices(wordlist):
-    # get indices of last word with length i
+    '''
+    Given a list of words with varying lengths, return a dictionary that maps
+    word lengths to the index of the last word with that length in the list.
+
+    Parameters
+    ----------
+    wordlist : list
+        List of words. Has to be sorted by length.
+
+    Returns
+    -------
+    di : dict
+        Dictionary that maps word lengths as keys to the index of the last word
+        in wordlist with that length as value.
+    '''
     di = {}
-    l = 1
+    length = 1
+
     for i, w in enumerate(wordlist):
-        ll = len(w)
-        if ll > l:
-            l = ll
-            di[ll - 1] = i
-        elif ll < l:
+        length_word = len(w)
+
+        # verify list is sorted
+        if length_word > length:
+
+            # set index of last word of previous length as value of that length
+            length = length_word
+            di[length_word - 1] = i
+
+        # raise error if not sorted
+        elif length_word < length:
             raise ValueError('Word list not sorted.')
-    for key in range(1, l):
+
+    # fill missing keys in dictionary
+    for key in range(1, length):
         if key not in di:
+
+            # set value to that of previous length
             di[key] = di[key - 1]
-    for key in range(l, l + 11):
-        di[key] = di[l - 1]
-    di[0] = di[l - 1]
-    print(di)
+
+    # fill up with keys for lengths within max. length from wordlist + 11
+    for key in range(length, length + 11):
+
+        # set value to that of maximum from wordlist
+        di[key] = di[length - 1]
+
+    # word with length 0
+    di[0] = None
+
     return di
 
 
@@ -130,7 +161,7 @@ def find_anagrams(words, word1):
 if __name__ == '__main__':
     words = read_words('words_alpha.txt')
     # get_len_indices(words)
-    anagram = 'italienholtlot'
+    anagram = 'leonwehrhan'
 
     reduced_words = reduce_words(words, anagram)
     find_anagrams(reduced_words, anagram)
