@@ -124,21 +124,41 @@ def get_len_indices(wordlist):
 
 
 def find_anagrams(words, word1):
+    '''
+    Find anagrams of a search word from a list of words.
 
-    # list for 1-word and 2-word
+    Parameters
+    ----------
+    words : list
+        List of words from which anagrams will be made.
+    word1 : str
+        Anagram search word.
+
+    Returns
+    -------
+    anagrams : list
+        Anagrams of the search word. The anagrams can be 1-word or 2-word
+        combinations.
+    '''
+    # list for 1-word anagrams
     w1_anagrams = []
 
-    words_for_w2 = []
+    # list for 2 word anagrams
     w2_anagrams = []
+
+    # words that will be considered for 2-word combinations
+    words_for_w2 = []
 
     # search wordlist for 1-word anagrams
     for word in words:
         if len(word1) == len(word):
             if count_letters(word1) == count_letters(word):
                 w1_anagrams.append(word)
+
         # word from list only considered for 2-word anagrams if shorter
         elif len(word) < len(word1):
             words_for_w2.append(word)
+
         # list is sorted
         elif len(word) > len(word1):
             break
@@ -154,8 +174,8 @@ def find_anagrams(words, word1):
             if len(comb) == len(word1):
                 if count_letters(word1) == count_letters(comb):
                     w2_anagrams.append((word, word2))
-    for a in w2_anagrams:
-        print(a[0], a[1])
+
+    return w1_anagrams + w2_anagrams
 
 
 if __name__ == '__main__':
