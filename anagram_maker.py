@@ -1,3 +1,6 @@
+import argparse
+
+
 def read_words(file):
     '''
     Read words from textfile and return as list.
@@ -180,8 +183,13 @@ def find_anagrams(words, word1):
 
 if __name__ == '__main__':
     words = read_words('words_alpha.txt')
-    # get_len_indices(words)
-    anagram = 'leonwehrhan'
 
-    reduced_words = reduce_words(words, anagram)
-    find_anagrams(reduced_words, anagram)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('query')
+    args = parser.parse_args()
+
+    reduced_words = reduce_words(words, args.query)
+    anagrams = find_anagrams(reduced_words, args.query)
+
+    for a in anagrams:
+        print(a)
