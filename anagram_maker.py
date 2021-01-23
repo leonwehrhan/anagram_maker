@@ -56,5 +56,50 @@ def read_words(file):
     return words
 
 
+def find_anagrams(word_data, word_data_encoded, query_word):
+    '''
+    Finds 1-word anagrams and 2-word combination anagrams of query.
+
+    Parameters
+    ----------
+    word_data : str
+        Path to word list file.
+    word_data_encoded : str
+        Path to numpy file holding word list as vectors.
+    query_word : str
+        String for which anagrams are searched.
+    '''
+    query_word = query_word.lower()
+    for c in query_word:
+        if c not in string.ascii_lowercase:
+            query_word = query_word.replace(c, '')
+    print(f'Query:\t{query_word}')
+
+    # load word database
+    word_list = read_words(word_data)
+    word_data = np.load(word_data_encoded)
+
+    # encode query
+    query_encoded = _word_to_vector(query_word)
+
+    # 1-word anagrams
+    anagrams_1 = []
+    an = np.where((word_data == query_encoded).all(axis=1))[0]
+    for x in an:
+        anagrams_1.append(word_list[x])
+
+    if query_word in anagrams_1:
+        anagrams_1.remove(query_word)
+
+    if len(anagrams_1) > 0:
+        print('1-Word Anagrams')
+        print('---------------')
+        for w in anagrams_1:
+            print(w)
+    else:
+        print('No 1-Word Anagrams')
+    print('')
+
+
 if __name__ == '__main__':
-    encode_words_alpha()
+    find_anagrams('words_alpha.txt', 'words_alpha.npy', 'helloworld')
