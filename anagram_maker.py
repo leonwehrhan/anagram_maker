@@ -5,8 +5,7 @@ import os
 
 
 def _word_to_vector(word):
-    '''
-    '''
+    '''Encode word in vector that holds count of every alphabetical letter.'''
     v = np.zeros(26, dtype=int)
 
     for i, c in enumerate(string.ascii_lowercase):
@@ -20,7 +19,19 @@ def _word_to_vector(word):
 
 def encode_words_alpha(file='words_alpha.txt', save=True):
     '''
-    Encode word database as vectors.
+    Encode word database as vectors using _word_to_vector.
+
+    Parameters
+    ----------
+    file : str
+        Path to word database file.
+    save : bool
+        Save encoded word database as numpy file.
+
+    Returns
+    -------
+    encoded : np.ndarray
+        2-D numpy array of shape (n_words, 26).
     '''
     words = read_words(file)
     encoded = np.zeros((len(words), 26), dtype=int)
@@ -58,7 +69,7 @@ def read_words(file):
 
 def find_anagrams(word_data, word_data_encoded, query_word):
     '''
-    Finds 1-word anagrams and 2-word combination anagrams of query.
+    Find 1-word anagrams and 2-word combination anagrams of query.
 
     Parameters
     ----------
