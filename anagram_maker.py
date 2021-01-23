@@ -73,7 +73,9 @@ def find_anagrams(word_data, word_data_encoded, query_word):
     for c in query_word:
         if c not in string.ascii_lowercase:
             query_word = query_word.replace(c, '')
+
     print(f'Query:\t{query_word}')
+    print('')
 
     # load word database
     word_list = read_words(word_data)
@@ -99,6 +101,29 @@ def find_anagrams(word_data, word_data_encoded, query_word):
     else:
         print('No 1-Word Anagrams')
     print('')
+
+    # 2-word anagrams
+    anagrams_2 = []
+
+    for i_row, row in enumerate(word_data):
+        diff = query_encoded - row
+
+        if (diff < 0).any():
+            continue
+        elif (diff == 0).all():
+            continue
+        else:
+            an = np.where((word_data == diff).all(axis=1))[0]
+            for x in an:
+                anagrams_2.append((word_list[i_row], word_list[x]))
+
+    if len(anagrams_2) > 0:
+        print('2-Word Anagrams')
+        print('---------------')
+        for w in anagrams_2:
+            print(w[0], w[1])
+    else:
+        print('No 2-Word Anagrams')
 
 
 if __name__ == '__main__':
