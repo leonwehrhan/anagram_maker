@@ -138,4 +138,8 @@ def find_anagrams(word_data, word_data_encoded, query_word):
 
 
 if __name__ == '__main__':
-    find_anagrams('words_alpha.txt', 'words_alpha.npy', 'helloworld')
+    parser = argparse.ArgumentParser()
+    parser.parse_args()
+    parser.add_argument('query')
+
+    find_anagrams('words_alpha.txt', 'words_alpha.npy', parser.query)
