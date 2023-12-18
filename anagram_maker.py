@@ -142,4 +142,4 @@ if __name__ == '__main__':
     parser.parse_args()
     parser.add_argument('query')
 
-    find_anagrams('words_alpha.txt', 'words_alpha.npy', parser.query)
+    find_anagrams('data/words_alpha.txt', 'data/words_alpha.npy', parser.query)
